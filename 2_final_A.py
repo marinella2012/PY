@@ -31,47 +31,81 @@ value — целое число, по модулю не превосходяще
 запросов push_back и push_front ничего выводить не надо.
 '''
 
+# 50159756
+
 
 class Deque:
+    def __init__(self, n):
+        self.items = [None] * n
+        self.max_n = n
+        self.head = 0
+        self.tail = 0
+        self.size = 0
 
-    def __init__(self):
-        self.items = []
-
-    def size(self):
-        return len(self.items)
-
-    def pop_front(self):
-        return self.items.pop()
-
-    def pop_back(self):
-        return self.items.pop(0)
-
-    def push_front(self, item):
-        return self.items.append(item)
+    def is_empty(self):
+        return self.size == 0
 
     def push_back(self, item):
-        return self.items.insert(0, item)
+        if self.size >= self.max_n:
+            raise IndexError('error')
+        self.items[self.tail] = item
+        self.tail = (self.tail + 1) % self.max_n
+        self.size += 1
+
+    def push_front(self, item):
+        if self.size >= self.max_n:
+            raise IndexError('error')
+        self.head = (self.head - 1) % self.max_n
+        self.items[self.head] = item
+        self.size += 1
+
+    def pop_front(self):
+        if self.is_empty():
+            raise IndexError('error')
+        x = self.items[self.head]
+        self.head = (self.head + 1) % self.max_n
+        self.size -= 1
+        return x
+
+    def pop_back(self):
+        if self.is_empty():
+            raise IndexError('error')
+        self.tail = (self.tail - 1) % self.max_n
+        x = self.items[self.tail]
+        self.size -= 1
+        return x
 
 
-d = Deque()
-n = int(input())
-m = int(input())
-for i in range(n):
-    com = input().split(' ')
-    if com == 'pop_front':
-        d.pop_front()
-    elif com == 'pop_back':
-        d.pop_back()
-    elif com == 'push_front':
-        d.push_front(int(com[1]))
-    d.push_back(int(com[1]))
-
-print(d.items)
+if __name__ == '__main__':
+    count = int(input())
+    n = int(input())
+    d = Deque(n)
+    commands = []
+    for _ in range(count):
+        commands.append(input())
+    for line in commands:
+        command, *args = line.split()
+        try:
+            if command == 'pop_front':
+                print(d.pop_front())
+            elif command == 'pop_back':
+                print(d.pop_back())
+            elif command == 'push_back':
+                d.push_back(*args)
+            elif command == 'push_front':
+                d.push_front(*args)
+            else:
+                print('Не знаю такой команды!')
+        except IndexError as error:
+            print(error)
 '''
-4
-4
-push_front 861
-push_front -819
+7
+10
+push_front -855
+push_front 720
 pop_back
 pop_back
+push_back 844
+pop_back
+push_back 823
 '''

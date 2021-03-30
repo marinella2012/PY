@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 q.push(int(com.split(' ')[1]))
         except ValueError:
             print('Ошибка при вводе!!!')
-#    print(q.queue)
+    print(q.queue)
 
 
 '''
@@ -69,4 +69,18 @@ size -> 2
 size -> 2
 push 1 -> error
 size -> 2
+
+
+10
+1
+push 1
+size
+push 3
+size
+push 1
+pop
+push 1
+pop
+push 3
+push 3
 '''
