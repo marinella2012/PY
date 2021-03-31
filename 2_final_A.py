@@ -31,7 +31,7 @@ value — целое число, по модулю не превосходяще
 запросов push_back и push_front ничего выводить не надо.
 '''
 
-# 50159756
+# 50210976
 
 
 class Deque:
@@ -87,13 +87,13 @@ if __name__ == '__main__':
         command, *args = line.split()
         try:
             if command == 'pop_front':
-                print(d.pop_front())
+                print(getattr(d, 'pop_front')())
             elif command == 'pop_back':
-                print(d.pop_back())
+                print(getattr(d, 'pop_back')())
             elif command == 'push_back':
-                d.push_back(*args)
+                getattr(d, 'push_back')(*args)
             elif command == 'push_front':
-                d.push_front(*args)
+                getattr(d, 'push_front')(*args)
             else:
                 print('Не знаю такой команды!')
         except IndexError as error:
@@ -108,4 +108,8 @@ pop_back
 push_back 844
 pop_back
 push_back 823
+
+-855
+720
+844
 '''

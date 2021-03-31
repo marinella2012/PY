@@ -1,52 +1,39 @@
-# 50171720
+# 50206234
 
 
 class Stack:
     def __init__(self):
         self.item = []
 
-    def summation(self):
-        a, b = self.item.pop(), self.item.pop()
-        self.item.append(int(b) + int(a))
+    def pop(self):
+        try:
+            return self.item.pop()
+        except IndexError:
+            raise IndexError('Стeк пуст')
 
-    def subtraction(self):
-        a, b = self.item.pop(), self.item.pop()
-        self.item.append(int(b) - int(a))
+    def push(self, value):
+        self.item.append(value)
 
-    def multiplication(self):
-        a, b = self.item.pop(), self.item.pop()
-        self.item.append(int(b) * int(a))
 
-    def integer_division(self):
-        a, b = self.item.pop(), self.item.pop()
-        self.item.append(int(b) // int(a))
-
-    operation = {
-        '+': summation,
-        '-': subtraction,
-        '*': multiplication,
-        '/': integer_division
-    }
-
-    def parsing_postfix_notation(self, postfix_notation):
-        for element in postfix_notation:
-            if element not in self.operation:
-                self.item.append(element)
-            else:
-                self.operation[element](self)
-        return self.item[-1]
+operations = {
+    '*': lambda x, y: x * y,
+    '/': lambda x, y: x // y,
+    '+': lambda x, y: x + y,
+    '-': lambda x, y: x - y
+}
 
 
 if __name__ == '__main__':
 
-    notation = Stack()
-    print(notation.parsing_postfix_notation(input().split()))
-
-'''
-operation_sign = {
-    '+': lambda x, y: y+x,
-    ...
-}
-ТОгда результат вычислений можно было бы получить, таким образом:
-stack.append(operation_sign[sign](stack.pop(), stack.pop()))
-'''
+    seq = input().split()
+    stack = Stack()
+    for element in seq:
+        try:
+            if element in operations.keys():
+                second = stack.pop()
+                first = stack.pop()
+                stack.push(operations.get(element)(first, second))
+            else:
+                stack.push(int(element))
+        except: IndexError
+    print(stack.pop())
