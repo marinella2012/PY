@@ -32,14 +32,15 @@
 
 
 def binary_search(arr, x, left, right):
-    new_arr = []
+
     if right <= left:
         return -1
-    mid = (left + right) // 2 + 1
-    if arr[mid] >= x:
-        new_arr.append(mid)
-        return ' '.join([str(i) for i in new_arr])
-    elif x < arr[mid]:
+    if arr[left] >= x:
+        return left + 1
+    mid = (left + right) // 2
+    if arr[mid-1] < x <= arr[mid]:
+        return mid + 1
+    elif x <= arr[mid]:
         return binary_search(arr, x, left, mid)
     else:
         return binary_search(arr, x, mid + 1, right)
@@ -49,9 +50,9 @@ if __name__ == '__main__':
     days = int(input())
     n = [int(i) for i in input().split()]
     price = int(input())
-    left = 0
-    right = len(n) - 1
-    print(binary_search(n, price, left, right))
+    a = binary_search(n, price, left=0, right=days)
+    b = binary_search(n, price*2, left=0, right=days)
+    print(a, b)
 
 
 '''
