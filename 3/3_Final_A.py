@@ -1,5 +1,5 @@
 
-# 50404786
+# 50517279
 
 def b_search(seq, digit, left, right) -> int:
 
@@ -24,13 +24,9 @@ def b_search(seq, digit, left, right) -> int:
 
     return -1
 
-'''
+
 if __name__ == '__main__':
     size = int(input())
     digit = int(input())
     seq = [int(i) for i in input().split()]
     print(b_search(seq, digit, left=0, right=size-1))
-'''
-a = [i for i in range(2000, 0, -1)]
-print(a)
-

@@ -1,37 +1,30 @@
 
-#
-
-
-class Person:
-    def __init__(self, name, point, penalty):
-        self.name = name
-        self.point = -int(point)
-        self.penalty = int(penalty)
-
-    def __gt__(self, other):
-        if self.point == other.point:
-            if self.penalty == other.penalty:
-                return self.name > other.name
-            return self.penalty > other.penalty
-        return self.point > other.point
-
-#    def __str__(self):
-#        return self.name
+# 50517298
 
 
 def partition(arr, low, high):
-    i = low-1
+    i = low - 1
     pivot = arr[high]
 
     for j in range(low, high):
 
-        if arr[j] < pivot:
-
-            i = i+1
+        if arr[j][1] < pivot[1]:
+            i += 1
             arr[i], arr[j] = arr[j], arr[i]
 
+        if arr[j][1] == pivot[1]:
+
+            if arr[j][2] < pivot[2]:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+
+            if arr[j][2] == pivot[2]:
+                if arr[j][0] < pivot[0]:
+                    i += 1
+                    arr[i], arr[j] = arr[j], arr[i]
+
     arr[i+1], arr[high] = arr[high], arr[i+1]
-    return (i+1)
+    return i + 1
 
 
 def quick_sort(arr, low, high):
@@ -46,18 +39,10 @@ def quick_sort(arr, low, high):
 
 
 if __name__ == '__main__':
-
     count = int(input())
     info = []
-    person = Person(name=None, point=0, penalty=0)
     for _ in range(count):
-        info.append(Person(*input().split()))
+        name, point, penalty = input().split()
+        info.append((name, -int(point), int(penalty)))
     quick_sort(info, 0, count-1)
-    print(*[person.name for person in info], sep='\n')
-
-
-'''
-username, score, fine = input().split()
-info.append((эти 3 переменных, но в определенном порядке и мб со знаком минус))
-
-'''
+    print(*[info[i][0] for i in range(count)], sep='\n')
