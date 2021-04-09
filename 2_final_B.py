@@ -1,4 +1,4 @@
-# 50206234
+# 50278711
 
 
 class Stack:
@@ -23,10 +23,7 @@ operations = {
 }
 
 
-if __name__ == '__main__':
-
-    seq = input().split()
-    stack = Stack()
+def do_operations():
     for element in seq:
         try:
             if element in operations.keys():
@@ -35,5 +32,12 @@ if __name__ == '__main__':
                 stack.push(operations.get(element)(first, second))
             else:
                 stack.push(int(element))
-        except: IndexError
+        except IndexError as error:
+            print(error)
     print(stack.pop())
+
+
+if __name__ == '__main__':
+    seq = input().split()
+    stack = Stack()
+    do_operations()

@@ -36,23 +36,24 @@ https://ru.wikipedia.org/wiki/Сортировка_пузырьком
 '''
 
 
-def bubble_sort(a, array):
-    for i in range(1, a):
-        item_to_insert = array[i]
-        j = i
-        while j > 0 and item_to_insert < array[j-1]:
-            array[j] = array[j-1]
-            j -= 1
-        array[j] = item_to_insert
-        print(f'step {i}, sorted {i+1} elements: {array}')
+def sort_bubble(length, array):
+    for i in range(length):
+        changed = False
+        for j in range(length-i-1):
+            if array[j] > array[j+1]:
+                array[j], array[j+1] = array[j+1], array[j]
+                changed = True
+        if changed is False:
+            if i == 0:
+                print(*array)
+            break
+        print(*array)
 
 
 if __name__ == '__main__':
-    # n = int(input())
-    # seq = [int(i) for i in input().split()]
-    n = 5
-    seq = [int(i) for i in ('4 3 9 2 1').split(' ')]
-    print(bubble_sort(n, seq))
+    size = int(input())
+    list_number = [int(i) for i in input().split()]
+    sort_bubble(size, list_number)
 
 
 '''
