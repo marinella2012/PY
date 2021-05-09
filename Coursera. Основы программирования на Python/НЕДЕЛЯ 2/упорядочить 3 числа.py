@@ -23,9 +23,10 @@ a, b, c = int(input()), int(input()), int(input())
 '''
 
 a, b, c = int(input()), int(input()), int(input())
-if a >= c:
-    if b >= c:
-        print(f'{c} {b} {a}')
-    else:
-        print(f'{b} {c} {a}')
-elif:
+if b > c:
+    (b, c) = (c, b)
+if a > c:
+    (a, c) = (c, a)
+if a > b:
+    (a, b) = (b, a)
+print(a, b, c)
